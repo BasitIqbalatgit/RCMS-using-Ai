@@ -78,11 +78,12 @@ export async function GET(
 // Update admin
 export async function PUT(
   request: NextRequest,
-  context: { params: { id: string } }
+  
+  { params }: { params: { id: string } }
 ) {
   try {
     await connectDB();
-    const adminId = context.params.id;
+    const adminId = params.id;
     const updateData = await request.json();
     console.log(`Received request to update admin ${adminId} with data:`, updateData);
 
@@ -169,7 +170,7 @@ export async function PUT(
       emailVerified: updatedAdmin.emailVerified,
     });
   } catch (error) {
-    console.error(`Error updating admin (_id: ${context.params.id}):`, error);
+    console.error(`Error updating admin (_id: ${params.id}):`, error);
     return NextResponse.json(
       { error: 'Failed to update admin', code: 'UPDATE_ERROR', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
@@ -180,11 +181,12 @@ export async function PUT(
 // Delete admin
 export async function DELETE(
   request: NextRequest,
-  context: { params: { id: string } }
+  
+  { params }: { params: { id: string } }
 ) {
   try {
     await connectDB();
-    const adminId = context.params.id;
+    const adminId = params.id;
     console.log(`Received request to delete admin: ${adminId}`);
 
     if (!mongoose.isValidObjectId(adminId)) {
@@ -222,7 +224,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Admin deleted successfully' });
   } catch (error) {
-    console.error(`Error deleting admin (_id: ${context.params.id}):`, error);
+    console.error(`Error deleting admin (_id: ${params.id}):`, error);
     return NextResponse.json(
       { error: 'Failed to delete admin', code: 'DELETE_ERROR', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
