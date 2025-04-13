@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // /app/api/admin/[id]/route.ts
 
+
 import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';
 import connectDB from '@/lib/db/mongodb';
@@ -9,7 +10,7 @@ import bcrypt from 'bcrypt';
 
 // Fetch admin by _id
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   const adminId = params.id;
@@ -78,7 +79,6 @@ export async function GET(
 // Update admin
 export async function PUT(
   request: NextRequest,
-  
   { params }: { params: { id: string } }
 ) {
   try {
@@ -181,7 +181,6 @@ export async function PUT(
 // Delete admin
 export async function DELETE(
   request: NextRequest,
-  
   { params }: { params: { id: string } }
 ) {
   try {
