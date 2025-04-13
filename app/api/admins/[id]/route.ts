@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-// /app/api/admin/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';
 import connectDB from '@/lib/db/mongodb';
@@ -7,15 +5,11 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // Fetch admin by _id
-type RouteHandlerContext = {
-  params: { id: string };
-};
-
 export async function GET(
-  request: NextRequest,
-  context: RouteHandlerContext
+  request: NextRequest, 
+  { params }: { params: { id: string } }
 ) {
-  const adminId = context.params.id;
+  const adminId = params.id;
 
   try {
     await connectDB();
@@ -172,8 +166,7 @@ export async function PUT(
       emailVerified: updatedAdmin.emailVerified,
     });
   } catch (error) {
-    const adminId = params.id;
-    console.error(`Error updating admin (_id: ${adminId}):`, error);
+    console.error(`Error updating admin (_id: ${params.id}):`, error);
     return NextResponse.json(
       { error: 'Failed to update admin', code: 'UPDATE_ERROR', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
@@ -226,8 +219,7 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Admin deleted successfully' });
   } catch (error) {
-    const adminId = params.id;
-    console.error(`Error deleting admin (_id: ${adminId}):`, error);
+    console.error(`Error deleting admin (_id: ${params.id}):`, error);
     return NextResponse.json(
       { error: 'Failed to delete admin', code: 'DELETE_ERROR', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
