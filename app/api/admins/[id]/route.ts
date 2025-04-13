@@ -7,11 +7,15 @@ import mongoose from 'mongoose';
 import bcrypt from 'bcrypt';
 
 // Fetch admin by _id
+type RouteHandlerContext = {
+  params: { id: string };
+};
+
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: RouteHandlerContext
 ) {
-  const adminId = params.id;
+  const adminId = context.params.id;
 
   try {
     await connectDB();
