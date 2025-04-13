@@ -1,13 +1,8 @@
 import nodemailer from 'nodemailer';
 
 export async function sendVerificationEmail(email: string, token: string, name: string) {
-  
-  let testAccount, transporter;
-
-  
-    // Development email configuration using gmail
-    // testAccount = await nodemailer.createTestAccount();
-    transporter = nodemailer.createTransport({
+    
+    const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,
       secure: false,

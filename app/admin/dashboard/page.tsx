@@ -10,14 +10,11 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 import {
-  Activity,
   Package,
   Users,
   BarChart,
-  Settings,
   AlertCircle,
 } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import {
   Select,
   SelectContent,

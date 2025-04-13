@@ -100,7 +100,7 @@ export function EditAdminDialog({
         <DialogHeader>
           <DialogTitle>Edit Admin</DialogTitle>
           <DialogDescription>
-            Update the admin account information. Click save when you're done.
+            Update the admin account information. Click save when you are done.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
