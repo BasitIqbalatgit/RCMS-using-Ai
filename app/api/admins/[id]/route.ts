@@ -1,4 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any,  @typescript-eslint/no-unused-vars*/
+
 // /app/api/admins/[id]/route.ts
 
 import { NextRequest, NextResponse } from 'next/server';
