@@ -44,7 +44,6 @@ export function LoginForm() {
   const toastId = useId();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const [animations, setAnimations] = useState<AnimationObject[]>([]);
   const animationRef = useRef<number | null>(null);
   const isInitialMount = useRef(true);
@@ -240,8 +239,6 @@ export function LoginForm() {
                       placeholder="you@example.com"
                       {...field}
                       className="bg-gray-50 border-gray-200"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -261,8 +258,6 @@ export function LoginForm() {
                       placeholder="Password"
                       {...field}
                       className="bg-gray-50 border-gray-200"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -297,7 +292,7 @@ export function LoginForm() {
                 href="/signup"
                 className="text-sm text-gray-600 hover:text-blue-600 transition-colors"
               >
-                Don't have an account? <span className="font-medium">Sign Up</span>
+                Don&apos;t have an account? <span className="font-medium">Sign Up</span>
               </Link>
 
             

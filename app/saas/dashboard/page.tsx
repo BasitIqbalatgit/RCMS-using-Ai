@@ -1,3 +1,4 @@
+
 'use client';
 
 import React, { useState, useEffect } from 'react';
@@ -65,7 +66,6 @@ interface DashboardData {
 const generateMockData = (): DashboardData => {
   const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const currentYear = new Date().getFullYear();
-  const lastYear = currentYear - 1;
   const twoYearsAgo = currentYear - 2;
 
   let baseRevenue = 8000;

@@ -1,8 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
   SidebarGroup,
-  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
@@ -11,7 +11,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 
-import { LayoutDashboard, Users, CreditCard, Settings2, Boxes } from "lucide-react";
+import { LayoutDashboard, Users, Settings2 } from "lucide-react";
 
 const items = [
   {

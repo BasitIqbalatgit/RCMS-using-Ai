@@ -5,7 +5,6 @@
 import React, { useState, useRef, ChangeEvent, DragEvent, MouseEvent } from 'react';
 
 const ApplyModification: React.FC = () => {
-  const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
   const [classificationResult, setClassificationResult] = useState<string>('');
   const [segmentedImageUrl, setSegmentedImageUrl] = useState<string | null>(null);
@@ -27,7 +26,6 @@ const ApplyModification: React.FC = () => {
     }
 
     revokePreviewUrl();
-    setSelectedImage(file);
     setClassificationResult('');
     setSegmentedImageUrl(null);
     setError(null);
@@ -108,7 +106,6 @@ const ApplyModification: React.FC = () => {
     }
 
     revokePreviewUrl();
-    setSelectedImage(file);
     const fileUrl = URL.createObjectURL(file);
     setPreviewUrl(fileUrl);
     classifyImage(file);
@@ -122,7 +119,6 @@ const ApplyModification: React.FC = () => {
     e.stopPropagation();
     revokePreviewUrl();
     setPreviewUrl(null);
-    setSelectedImage(null);
     setClassificationResult('');
     setSegmentedImageUrl(null);
     setError(null);

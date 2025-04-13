@@ -49,7 +49,7 @@ const Features = () => {
             </svg>
             <h3 className="mt-12 text-xl font-bold text-gray-900 font-pj">Realistic Previews</h3>
             <p className="mt-5 text-base text-gray-600 font-pj">
-              Upload a customer's car image and instantly apply modifications using our AI engine, delivering a lifelike preview.
+              Upload a customer&apos;s car image and instantly apply modifications using our AI engine, delivering a lifelike preview.
             </p>
           </div>
 

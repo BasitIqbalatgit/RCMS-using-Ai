@@ -65,7 +65,6 @@ const formSchema = z
 export function SignUpForm() {
   const toastId = useId();
   const [loading, setLoading] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
   const [animations, setAnimations] = useState<AnimationObject[]>([]);
   const animationRef = useRef<number | null>(null);
   const isInitialMount = useRef(true);
@@ -254,8 +253,6 @@ export function SignUpForm() {
                       placeholder="Your full name"
                       {...field}
                       className="bg-gray-50 border-gray-200"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -274,8 +271,6 @@ export function SignUpForm() {
                       placeholder="you@example.com"
                       {...field}
                       className="bg-gray-50 border-gray-200"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <FormMessage />
@@ -295,8 +290,6 @@ export function SignUpForm() {
                       placeholder="Password"
                       {...field}
                       className="bg-gray-50 border-gray-200"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <FormMessage className="text-xs sm:text-sm" />
@@ -318,8 +311,6 @@ export function SignUpForm() {
                       placeholder="Confirm Password"
                       {...field}
                       className="bg-gray-50 border-gray-200"
-                      onFocus={() => setIsFocused(true)}
-                      onBlur={() => setIsFocused(false)}
                     />
                   </FormControl>
                   <FormMessage />

@@ -5,7 +5,6 @@ import HomeScreen from "@/components/landingPage/HomeScreen";
 import NavbarComponent from "@/components/landingPage/Navbar";
 import Testimonials from "@/components/landingPage/Testimonials";
 import { Button } from "@/components/ui/button";
-import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
