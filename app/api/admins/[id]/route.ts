@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // /app/api/admins/[id]/route.ts
 
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';
 import connectDB from '@/lib/db/mongodb';
 import mongoose from 'mongoose';
@@ -9,13 +9,13 @@ import bcrypt from 'bcrypt';
 
 // Fetch admin by _id
 export async function GET(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
-  const { id: adminId } = await params;
-
+  
   try {
     await connectDB();
+    const { id: adminId } = await params;
     console.log(`Received request to fetch admin with ID: ${adminId}`);
 
     if (!mongoose.isValidObjectId(adminId)) {
@@ -67,7 +67,7 @@ export async function GET(
     console.log(`Successfully returning admin data for ID: ${objectId}`);
     return NextResponse.json(response);
   } catch (error) {
-    console.error(`Database error when fetching admin ${adminId}:`, error);
+    console.error(`Database error when fetching admin with ID:`, error);
     return NextResponse.json(
       { error: 'Database error', code: 'DB_ERROR', details: error instanceof Error ? error.message : String(error) },
       { status: 500 }
@@ -77,12 +77,12 @@ export async function GET(
 
 // Update admin
 export async function PUT(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id: adminId } = await params;
     await connectDB();
+    const { id: adminId } = await params;
     const updateData = await request.json();
     console.log(`Received request to update admin ${adminId} with data:`, updateData);
 
@@ -179,12 +179,12 @@ export async function PUT(
 
 // Delete admin
 export async function DELETE(
-  request: Request,
+  request: NextRequest,
   { params }: { params: Promise<{ id: string }> }
 ) {
   try {
-    const { id: adminId } = await params;
     await connectDB();
+    const { id: adminId } = await params;
     console.log(`Received request to delete admin: ${adminId}`);
 
     if (!mongoose.isValidObjectId(adminId)) {
