@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any  @typescript-eslint/no-unused-vars*/
+/* eslint-disable   @typescript-eslint/no-unused-vars*/
 // /api/admins/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';
