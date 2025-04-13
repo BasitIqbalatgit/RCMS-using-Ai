@@ -9,10 +9,10 @@ import bcrypt from 'bcrypt';
 
 // Fetch admin by _id
 export async function GET(
-  request: NextRequest,
-  context: { params: { id: string } }
+  request: Request,
+  { params }: { params: { id: string } }
 ) {
-  const adminId = context.params.id;
+  const adminId = params.id;
 
   try {
     await connectDB();
