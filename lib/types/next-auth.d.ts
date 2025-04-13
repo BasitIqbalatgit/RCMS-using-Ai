@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable @typescript-eslint/no-explicit-any,  @typescript-eslint/no-unused-vars */
 // lib/types/next-auth.d.ts
 import NextAuth, { DefaultSession } from "next-auth";
 import { UserRole } from "@/lib/db/models/User";

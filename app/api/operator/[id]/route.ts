@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any  @typescript-eslint/no-unused-vars*/
+/* eslint-disable @typescript-eslint/no-explicit-any,  @typescript-eslint/no-unused-vars*/
 
 import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';
@@ -46,7 +46,7 @@ export async function PUT(
 
     const operatorId = params.id;
     const updateData = await request.json();
-    const { name, email, password, adminId } = updateData;
+    const {  password, adminId } = updateData;
 
     // Validate that this is an operator record
     const existingOperator = await User.findOne({

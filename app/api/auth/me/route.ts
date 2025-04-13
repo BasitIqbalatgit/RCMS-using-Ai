@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any  @typescript-eslint/no-unused-vars*/
+/* eslint-disable @typescript-eslint/no-explicit-any,  @typescript-eslint/no-unused-vars*/
 // app/api/auth/me/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
