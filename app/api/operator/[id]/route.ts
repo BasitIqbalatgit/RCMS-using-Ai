@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';
 import connectDB from '@/lib/db/mongodb';

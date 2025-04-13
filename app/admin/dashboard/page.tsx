@@ -1,7 +1,6 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { useRouter } from 'next/navigation';
 import {
   Card,
   CardContent,
@@ -61,7 +60,6 @@ interface AnalyticsData {
 type TimeRange = '7' | '30' | '90' | '365';
 
 const AdminDashboard: React.FC = () => {
-  const router = useRouter();
   const [timeRange, setTimeRange] = useState<TimeRange>('30');
   const [analyticsData, setAnalyticsData] = useState<AnalyticsData>({
     operatorActivityData: [],

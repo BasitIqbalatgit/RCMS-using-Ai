@@ -1,7 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import nodemailer from 'nodemailer';
 
 export async function sendVerificationEmail(email: string, token: string, name: string) {
-    
+
     const transporter = nodemailer.createTransport({
       host: 'smtp.gmail.com',
       port: 587,

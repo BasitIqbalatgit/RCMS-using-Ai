@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // api/operator/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import User, { UserRole } from '@/lib/db/models/User';

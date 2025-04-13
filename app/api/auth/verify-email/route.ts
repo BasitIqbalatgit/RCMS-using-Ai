@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/verify-email/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "@/lib/db/mongodb";

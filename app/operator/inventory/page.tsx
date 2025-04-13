@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
-  Search, Filter, Download, Eye, ShoppingCart, Package
+  Search, Filter, Download, Eye, 
 } from "lucide-react";
 
 // Type definition for Inventory Items

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 // app/api/auth/forgot-password/route.ts
 import { NextRequest, NextResponse } from "next/server";
 import crypto from "crypto";

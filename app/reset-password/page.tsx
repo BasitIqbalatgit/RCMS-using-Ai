@@ -1,8 +1,6 @@
 import React from 'react';
-import { LoginForm } from '@/components/authentication/LoginForm';
 import { BackgroundBeams } from '@/components/authentication/BackgroundBeams';
 import NavbarComponent from '@/components/landingPage/Navbar';
-import { ForgotPasswordForm } from '@/components/authentication/ForgotPasswordForm';
 import { ResetPasswordForm } from '@/components/authentication/ResetPasswordForm';
 
 const Page = () => {
