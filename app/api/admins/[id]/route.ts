@@ -11,12 +11,12 @@ import bcrypt from 'bcrypt';
 // Fetch admin by _id
 export async function GET(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } } 
 ) {
   
   try {
     await connectDB();
-    const { id: adminId } = await params;
+    const { id: adminId } = params;
     console.log(`Received request to fetch admin with ID: ${adminId}`);
 
     if (!mongoose.isValidObjectId(adminId)) {
@@ -79,11 +79,11 @@ export async function GET(
 // Update admin
 export async function PUT(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } } 
 ) {
   try {
     await connectDB();
-    const { id: adminId } = await params;
+    const { id: adminId } = params;
     const updateData = await request.json();
     console.log(`Received request to update admin ${adminId} with data:`, updateData);
 
@@ -181,11 +181,11 @@ export async function PUT(
 // Delete admin
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: Promise<{ id: string }> }
+  { params }: { params: { id: string } } 
 ) {
   try {
     await connectDB();
-    const { id: adminId } = await params;
+    const { id: adminId } = params;
     console.log(`Received request to delete admin: ${adminId}`);
 
     if (!mongoose.isValidObjectId(adminId)) {
