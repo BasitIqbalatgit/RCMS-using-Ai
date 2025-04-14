@@ -40,12 +40,15 @@ export function ResetPasswordForm() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const tokenParam = searchParams.get('token');
-    if (!tokenParam) {
-      toast.error('Reset token is missing');
-      router.push('/forgot-password');
-    } else {
-      setToken(tokenParam);
+    // Only run on client side
+    if (typeof window !== 'undefined') {
+      const tokenParam = searchParams.get('token');
+      if (!tokenParam) {
+        toast.error('Reset token is missing');
+        router.push('/forgot-password');
+      } else {
+        setToken(tokenParam);
+      }
     }
   }, [searchParams, router]);
 

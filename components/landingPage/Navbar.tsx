@@ -1,4 +1,4 @@
-
+'use client'
 import { Button } from "../ui/button";
 import Logo from "../Logo";
 import Link from "next/link";
