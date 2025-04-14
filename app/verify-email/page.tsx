@@ -1,10 +1,27 @@
-// app/verify-email/page.tsx
 'use client'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 
-export default function VerifyEmail() {
+// Loading component to show while suspense is active
+function EmailVerificationLoading() {
+  return (
+    <div className="flex flex-col items-center justify-center min-h-screen py-2">
+      <div className="p-8 bg-white rounded-lg shadow-md max-w-md w-full">
+        <h1 className="text-2xl font-bold mb-6 text-center">Email Verification</h1>
+        <div className="text-center">
+          <p>Loading verification...</p>
+          <div className="mt-4 flex justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-gray-900"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Component that uses useSearchParams
+function VerifyEmailContent() {
   const [status, setStatus] = useState('verifying');
   const [message, setMessage] = useState('');
   const router = useRouter();
@@ -90,5 +107,14 @@ export default function VerifyEmail() {
         )}
       </div>
     </div>
+  );
+}
+
+// Main component with Suspense
+export default function VerifyEmail() {
+  return (
+    <Suspense fallback={<EmailVerificationLoading />}>
+      <VerifyEmailContent />
+    </Suspense>
   );
 }
