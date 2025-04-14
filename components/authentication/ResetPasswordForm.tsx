@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
@@ -32,7 +32,8 @@ const formSchema = z.object({
   path: ["confirmPassword"],
 });
 
-export function ResetPasswordForm() {
+// Separate component that uses useSearchParams
+function ResetPasswordContent() {
   const [loading, setLoading] = useState(false);
   const [token, setToken] = useState<string | null>(null);
   const [resetCompleted, setResetCompleted] = useState(false);
@@ -189,5 +190,38 @@ export function ResetPasswordForm() {
         </Form>
       </motion.div>
     </div>
+  );
+}
+
+// Loading state component
+function LoadingForm() {
+  return (
+    <div className="relative p-0.5 rounded-lg w-75 md:w-96 md:max-w-md mx-auto">
+      <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-blue-500 via-purple-500 to-cyan-500 animate-pulse"></div>
+      <div className="relative p-4 sm:p-8 bg-white rounded-lg shadow-xl">
+        <div className="h-6 bg-gray-200 rounded animate-pulse mb-6"></div>
+        <div className="h-4 bg-gray-200 rounded animate-pulse mb-8 w-3/4 mx-auto"></div>
+        <div className="space-y-6">
+          <div>
+            <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-1/3"></div>
+            <div className="h-10 bg-gray-100 rounded animate-pulse"></div>
+          </div>
+          <div>
+            <div className="h-4 bg-gray-200 rounded animate-pulse mb-2 w-1/3"></div>
+            <div className="h-10 bg-gray-100 rounded animate-pulse"></div>
+          </div>
+          <div className="h-10 bg-gray-200 rounded animate-pulse mt-4"></div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Main wrapper component with Suspense
+export function ResetPasswordForm() {
+  return (
+    <Suspense fallback={<LoadingForm />}>
+      <ResetPasswordContent />
+    </Suspense>
   );
 }
