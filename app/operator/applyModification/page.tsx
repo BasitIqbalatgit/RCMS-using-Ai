@@ -263,10 +263,11 @@ const ApplyModification: React.FC = () => {
       setError('Please upload a valid image file');
       return;
     }
-
+  
     revokePreviewUrl();
     setSegmentedImageUrl(null);
     setError(null);
+    setIsLoading(true); // Set loading immediately
     const fileUrl = URL.createObjectURL(file);
     setPreviewUrl(fileUrl);
     segmentImage(file);
@@ -406,15 +407,39 @@ const ApplyModification: React.FC = () => {
           <h2 className="text-xl font-semibold mb-4">Processing Status</h2>
 
           {isLoading ? (
-            <div className="flex justify-center items-center py-6">
-              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-              <span className="ml-2 text-gray-600">Processing image...</span>
-            </div>
-          ) : error ? (
-            <div className="text-red-500 py-4">{error}</div>
-          ) : (
-            <p className="text-gray-500 py-4">Upload an image to process</p>
-          )}
+  <div className="flex flex-col items-center justify-center py-6">
+    <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mb-4"></div>
+    <span className="text-gray-600">Processing image with YOLO model...</span>
+    <span className="text-gray-500 text-sm mt-2">This may take up to 20 seconds</span>
+  </div>
+) : error ? (
+  <div className="bg-red-50 border border-red-200 rounded-md p-4">
+    <div className="flex">
+      <div className="flex-shrink-0">
+        <svg className="h-5 w-5 text-red-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor">
+          <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clipRule="evenodd" />
+        </svg>
+      </div>
+      <div className="ml-3">
+        <h3 className="text-sm font-medium text-red-800">Error Processing Image</h3>
+        <div className="mt-2 text-sm text-red-700">
+          <p>{error}</p>
+        </div>
+        <div className="mt-4">
+          <button
+            type="button"
+            className="rounded-md bg-red-50 px-2 py-1.5 text-sm font-medium text-red-800 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-red-600 focus:ring-offset-2"
+            onClick={() => setError(null)}
+          >
+            Dismiss
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+) : (
+  <p className="text-gray-500 py-4">Upload an image to process</p>
+)}
         </div>
 
         <div className="mt-6 text-center text-sm text-gray-500">

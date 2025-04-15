@@ -67,16 +67,11 @@
 
 // app/api/operator/segment/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import { promises as fs } from 'fs';
-import path from 'path';
-import { spawn } from 'child_process';
 
 type ResponseData = {
   segmentedImageUrl?: string;
   error?: string;
 };
-
-const PYTHON_EXECUTABLE = process.platform === 'win32' ? 'python' : 'python3';
 
 export async function POST(req: NextRequest): Promise<NextResponse<ResponseData>> {
   try {
@@ -87,49 +82,50 @@ export async function POST(req: NextRequest): Promise<NextResponse<ResponseData>
       return NextResponse.json({ error: 'No image file provided' }, { status: 400 });
     }
 
-    // Sanitize filename
-    const fileName = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
-    const tempInputPath = path.join('/tmp', fileName);
-    const tempOutputPath = path.join('/tmp', `segmented-${fileName}`);
+    // Validate file size
+    if (file.size > 5 * 1024 * 1024) {
+      return NextResponse.json({ error: 'Image too large (max 5MB)' }, { status: 400 });
+    }
 
-    // Write input file to /tmp
+    // Convert file to base64
     const buffer = Buffer.from(await file.arrayBuffer());
-    await fs.writeFile(tempInputPath, buffer);
+    const base64Image = buffer.toString('base64');
 
-    // Run Python script
-    const pythonProcess = spawn(PYTHON_EXECUTABLE, [
-      path.join(process.cwd(), 'yoloTest.py'),
-      tempInputPath,
-      tempOutputPath,
-    ]);
+    // Construct the URL for the Python API
+    // In production this will be the same domain, in development you'll need to adjust this
+    const apiUrl = process.env.NODE_ENV === 'production' 
+      ? `${process.env.VERCEL_URL || ''}/api/segment` 
+      : 'http://localhost:3000/api/segment';
 
-    let errorOutput = '';
-    pythonProcess.stderr.on('data', (data: Buffer) => {
-      errorOutput += data.toString();
+    console.log(`Calling Python API at: ${apiUrl}`);
+
+    // Call the Python serverless function
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        image: base64Image
+      }),
     });
 
-    await new Promise<void>((resolve, reject) => {
-      pythonProcess.on('close', (code) => {
-        if (code === 0) resolve();
-        else reject(new Error(`Python script exited with code ${code}: ${errorOutput}`));
-      });
-    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || `API request failed with status ${response.status}`);
+    }
 
-    // Read output file
-    const outputBuffer = await fs.readFile(tempOutputPath);
-    const base64Image = `data:image/jpeg;base64,${outputBuffer.toString('base64')}`;
-
-    // Clean up
-    await fs.unlink(tempInputPath).catch(() => {});
-    await fs.unlink(tempOutputPath).catch(() => {});
-
-    return NextResponse.json({ segmentedImageUrl: base64Image }, { status: 200 });
+    const data = await response.json();
+    
+    // Return the processed image
+    return NextResponse.json({
+      segmentedImageUrl: `data:image/jpeg;base64,${data.segmentedImage}`
+    }, { status: 200 });
+    
   } catch (error) {
     console.error('Segmentation error:', error);
     return NextResponse.json(
-      {
-        error: error instanceof Error ? error.message : 'Failed to segment image',
-      },
+      { error: error instanceof Error ? error.message : 'Failed to segment image' },
       { status: 500 }
     );
   }

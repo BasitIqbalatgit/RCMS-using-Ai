@@ -1,0 +1,27 @@
+{
+    "builds": [
+      {
+        "src": "app/api/**/*",
+        "use": "@vercel/node"
+      }
+    ],
+    "routes": [
+      {
+         "src": "/api/segment",
+      "dest": "/api/segment.py"
+      }
+    ],
+    "functions": {
+      "api/segment.py": {
+      "runtime": "python3.9",
+      "memory": 1024,
+      "maxDuration": 30
+    }
+    },
+    "build": {
+      "env": {
+        "PYTHON_PATH": "/opt/python/bin/python",
+        "PYTHONPATH": "python-libs"
+      }
+    }
+  }

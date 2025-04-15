@@ -150,34 +150,31 @@
 
 
 
+# yoloTest.py
 import sys
 import cv2
 from ultralytics import YOLO
 
-# Path to the trained YOLOv8 model
 YOLO_MODEL_PATH = 'car_parts_detector.pt'
 
 def segment_image(input_path, output_path):
-    # Load the YOLOv8 model
-    model = YOLO(YOLO_MODEL_PATH)
-
-    # Read the input image
-    image = cv2.imread(input_path)
-    if image is None:
-        raise ValueError("Failed to load input image")
-
-    # Perform inference
-    results = model(image)
-
-    # Draw bounding boxes or segmentation masks on the image
-    annotated_image = results[0].plot()  # This annotates the image with detections
-
-    # Save the annotated image
-    cv2.imwrite(output_path, annotated_image)
+    try:
+        model = YOLO(YOLO_MODEL_PATH)
+        image = cv2.imread(input_path)
+        if image is None:
+            raise ValueError("Failed to load input image")
+        results = model(image)
+        annotated_image = results[0].plot()
+        success = cv2.imwrite(output_path, annotated_image)
+        if not success:
+            raise ValueError("Failed to write output image")
+    except Exception as e:
+        print(f"Error in segment_image: {str(e)}", file=sys.stderr)
+        raise
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:
-        print("Usage: python yoloTest.py <input_image_path> <output_image_path>")
+        print("Usage: python yoloTest.py <input_image_path> <output_image_path>", file=sys.stderr)
         sys.exit(1)
 
     input_image_path = sys.argv[1]
